@@ -32,7 +32,7 @@ class AppointmentService
 
         return $query->orderBy('date', 'asc')
                     ->orderBy('time', 'asc')
-                    ->get();
+                    ->paginate(10); // Add pagination with 10 items per page
     }
 
     public function createAppointment(Request $request)

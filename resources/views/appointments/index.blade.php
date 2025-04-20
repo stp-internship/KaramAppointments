@@ -24,7 +24,12 @@
         @endif
 
         <div class="d-flex justify-content-between align-items-center mb-4">
-            <h1 class="h3">جدول المواعيد</h1>
+            <div class="d-flex align-items-center gap-3">
+                <a href="{{ url('/') }}" class="btn btn-outline-secondary">
+                    العودة للرئيسية
+                </a>
+                <h1 class="h3 mb-0">جدول المواعيد</h1>
+            </div>
             <a href="{{ route('appointments.create') }}" class="btn btn-primary">
                 إضافة موعد جديد
             </a>
@@ -99,7 +104,9 @@
                                     <span class="badge bg-primary">{{ $appointment->category }}</span>
                                 </td>
                                 <td>
-                                    <span class="badge bg-success">{{ $appointment->status }}</span>
+                                    <span class="badge {{ $appointment->status == 'completed' ? 'bg-success' : ($appointment->status == 'cancelled' ? 'bg-danger' : 'bg-warning') }}">
+                                        {{ $appointment->status }}
+                                    </span>
                                 </td>
                                 <td>
                                     <a href="{{ route('appointments.show', $appointment->id) }}" class="btn btn-sm btn-outline-info ms-2">عرض</a>
@@ -115,6 +122,9 @@
                             
                         </tbody>
                     </table>
+                </div>
+                <div class="d-flex justify-content-center mt-4">
+                    {{ $appointments->withQueryString()->links() }}
                 </div>
             </div>
         </div>
