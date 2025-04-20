@@ -4,63 +4,56 @@ namespace App\Http\Controllers;
 
 use App\Models\Appointment;
 use Illuminate\Http\Request;
+use App\Services\AppointmentService;
 
 class AppointmentController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    protected $appointmentService;
+
+    public function __construct(AppointmentService $appointmentService)
     {
-        $appointments = Appointment::all();
+        $this->appointmentService = $appointmentService;
+    }
+
+    public function index(Request $request)
+    {
+        $appointments = $this->appointmentService->getFilteredAppointments($request);
         return view('appointments.index', compact('appointments'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        //
+        return view('appointments.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        $this->appointmentService->createAppointment($request);
+        return redirect()->route('appointments.index')
+            ->with('success', 'Appointment created successfully.');
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(Appointment $appointment)
     {
-        //
+        return view('appointments.show', compact('appointment'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(Appointment $appointment)
     {
-        //
+        return view('appointments.edit', compact('appointment'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, Appointment $appointment)
     {
-        //
+        $this->appointmentService->updateAppointment($request, $appointment);
+        return redirect()->route('appointments.index')
+            ->with('success', 'Appointment updated successfully');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Appointment $appointment)
-    {
-        //
+    {    
+        $this->appointmentService->deleteAppointment($appointment);
+        return redirect()->route('appointments.index')
+            ->with('success', 'Appointment deleted successfully');
     }
 }

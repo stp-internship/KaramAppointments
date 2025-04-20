@@ -7,4 +7,5 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/appointments', [AppointmentController::class,'index'])->name('appointments.index');
+//appointments routs
+Route::resource('appointments', AppointmentController::class);

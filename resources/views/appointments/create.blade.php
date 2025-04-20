@@ -20,42 +20,67 @@
                             @csrf
                             <div class="mb-3">
                                 <label for="title" class="form-label">عنوان الموعد</label>
-                                <input type="text" class="form-control" id="title" name="title" required>
+                                <input type="text" class="form-control @error('title') is-invalid @enderror" 
+                                    id="title" name="title" value="{{ old('title') }}" required>
+                                @error('title')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
                             </div>
 
                             <div class="row">
                                 <div class="col-md-6 mb-3">
                                     <label for="date" class="form-label">التاريخ</label>
-                                    <input type="date" class="form-control" id="date" name="date" required>
+                                    <input type="date" class="form-control @error('date') is-invalid @enderror" 
+                                        id="date" name="date" value="{{ old('date') }}" 
+                                        min="{{ date('Y-m-d') }}" required>
+                                    @error('date')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <label for="time" class="form-label">الوقت</label>
-                                    <input type="time" class="form-control" id="time" name="time" required>
+                                    <input type="time" class="form-control @error('time') is-invalid @enderror" 
+                                        id="time" name="time" value="{{ old('time') }}" required>
+                                    @error('time')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
 
                             <div class="row">
                                 <div class="col-md-6 mb-3">
                                     <label for="category" class="form-label">التصنيف</label>
-                                    <select class="form-select" id="category" name="category" required>
-                                        <option value="work">عمل</option>
-                                        <option value="personal">شخصي</option>
-                                        <option value="meeting">اجتماع</option>
+                                    <select class="form-select @error('category') is-invalid @enderror" 
+                                        id="category" name="category" required>
+                                        <option value="work" {{ old('category') == 'work' ? 'selected' : '' }}>عمل</option>
+                                        <option value="personal" {{ old('category') == 'personal' ? 'selected' : '' }}>شخصي</option>
+                                        <option value="meeting" {{ old('category') == 'meeting' ? 'selected' : '' }}>اجتماع</option>
                                     </select>
+                                    @error('category')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <label for="status" class="form-label">الحالة</label>
-                                    <select class="form-select" id="status" name="status" required>
-                                        <option value="pending">قيد الانتظار</option>
-                                        <option value="confirmed">مؤكد</option>
-                                        <option value="cancelled">ملغي</option>
+                                    <select class="form-select @error('status') is-invalid @enderror" 
+                                        id="status" name="status" required>
+                                        <option value="scheduled" {{ old('status') == 'scheduled' ? 'selected' : '' }}>قيد الانتظار</option>
+                                        <option value="completed" {{ old('status') == 'completed' ? 'selected' : '' }}>مؤكد</option>
+                                        <option value="cancelled" {{ old('status') == 'cancelled' ? 'selected' : '' }}>ملغي</option>
                                     </select>
+                                    @error('status')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
 
                             <div class="mb-3">
                                 <label for="notes" class="form-label">ملاحظات</label>
-                                <textarea class="form-control" id="notes" name="notes" rows="3"></textarea>
+                                <textarea class="form-control @error('notes') is-invalid @enderror" 
+                                    id="notes" name="notes" rows="3">{{ old('notes') }}</textarea>
+                                @error('notes')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
                             </div>
 
                             <div class="d-flex gap-2">

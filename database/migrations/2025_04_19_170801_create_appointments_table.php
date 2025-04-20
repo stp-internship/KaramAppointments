@@ -17,7 +17,7 @@ return new class extends Migration
             $table->date('date');
             $table->time( 'time');
             $table->enum('category', ['work', 'personal', 'meeting'])->default('work');
-            $table->enum('status', ['pending', 'confirmed', 'cancelled'])->default('pending');
+            $table->enum('status', ['scheduled', 'completed', 'cancelled'])->default('pending');
             $table->text('notes')->nullable();
             $table->timestamps();
         });
