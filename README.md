@@ -51,7 +51,6 @@ git clone https://github.com/stp-internship/KaramAppointments.git
 
 ## One-Time Setup Commands
 
-```bash
 # Clone the repository
 git clone https://github.com/stp-internship/KaramAppointments.git
 cd KaramAppointments
