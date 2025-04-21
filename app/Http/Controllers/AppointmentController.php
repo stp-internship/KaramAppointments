@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Appointment;
-use Illuminate\Http\Request;
+use App\Http\Requests\AppointmentRequest;
 use App\Services\AppointmentService;
+use Illuminate\Http\Request;
 
 class AppointmentController extends Controller
 {
@@ -26,7 +27,7 @@ class AppointmentController extends Controller
         return view('appointments.create');
     }
 
-    public function store(Request $request)
+    public function store(AppointmentRequest $request)
     {
         $this->appointmentService->createAppointment($request);
         return redirect()->route('appointments.index')
@@ -43,7 +44,7 @@ class AppointmentController extends Controller
         return view('appointments.edit', compact('appointment'));
     }
 
-    public function update(Request $request, Appointment $appointment)
+    public function update(AppointmentRequest $request, Appointment $appointment)
     {
         $this->appointmentService->updateAppointment($request, $appointment);
         return redirect()->route('appointments.index')

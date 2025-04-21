@@ -35,38 +35,14 @@ class AppointmentService
                     ->paginate(10); // Add pagination with 10 items per page
     }
 
-    public function createAppointment(Request $request)
+    public function createAppointment($request)
     {
-        $messages = [
-            'date.after_or_equal' => 'لا يمكن إضافة موعد في تاريخ سابق',
-            'date.required' => 'حقل التاريخ مطلوب',
-            'date.date' => 'صيغة التاريخ غير صحيحة'
-        ];
-    
-        $validated = $request->validate([
-            'title' => 'required|string|max:255',
-            'notes' => 'required|string',
-            'date' => 'required|date|after_or_equal:today',
-            'time' => 'required|date_format:H:i',
-            'status' => 'required|in:scheduled,completed,cancelled',
-            'category' => 'required|in:work,personal,meeting'
-        ], $messages);
-
-        return Appointment::create($validated);
+        return Appointment::create($request->validated());
     }
 
-    public function updateAppointment(Request $request, Appointment $appointment)
+    public function updateAppointment($request, Appointment $appointment)
     {
-        $validated = $request->validate([
-            'title' =>'required|string|max:255',
-            'notes' =>'required|string',
-            'date' =>'required|date',
-            'time' =>'required|date_format:H:i',
-            'status' =>'required|in:scheduled,completed,cancelled',
-            'category' =>'required|in:work,personal,meeting'
-        ]);
-
-        return $appointment->update($validated);
+        return $appointment->update($request->validated());
     }
 
     public function deleteAppointment(Appointment $appointment)
