@@ -44,13 +44,12 @@ A Laravel-based appointment management system with comprehensive features for sc
 
 ## Installation
 
-1. Clone the repository:
-```bash
 git clone https://github.com/stp-internship/KaramAppointments.git
 # KaramAppointments Setup Guide
 
 ## One-Time Setup Commands
 
+```bash
 # Clone the repository
 git clone https://github.com/stp-internship/KaramAppointments.git
 cd KaramAppointments
@@ -78,6 +77,17 @@ php artisan route:cache
 
 # Start the server
 php artisan serve
+
+# Composer issues
+composer dump-autoload
+
+# Database issues
+php artisan migrate:reset
+php artisan migrate --seed
+
+# Permission issues
+php artisan cache:clear
+php artisan view:clear
 
 # Composer issues
 composer dump-autoload
